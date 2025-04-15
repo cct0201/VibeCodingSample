@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+實現或修改 `app.py` 中的 `/get-articles` endpoint 時：
+
+*   **核心邏輯 (`Core Logic`):** endpoint **必須**從 `article_sources` 列表中隨機選擇文章 URL。
+*   **唯一性 (`Uniqueness`):** 選定的 URL **必須**是唯一的。不要在同一個回應中返回重複的 URL。`random.sample()` 適合此用途。
+*   **數量 (`Quantity`):**
+    *   如果 `article_sources` 中的唯一 URL 數量為 3 或更多，endpoint **必須**返回正好 3 個唯一的 URL。
+    *   如果 `article_sources` 中的唯一 URL 數量少於 3，endpoint **必須**返回所有可用的唯一 URL。
+*   **JSON 回應格式 (`JSON Response Format`):**
+    *   成功時，回應**必須**是一個 JSON object，包含一個 key "articles"，其值為所選 URL string 的 list。範例：`{"articles": ["url1", "url2", "url3"]}`。
+    *   失敗時 (例如，選擇過程中發生內部錯誤)，回應**應該**是一個指示錯誤的 JSON object。範例：`{"error": "Failed to retrieve articles"}`。應使用適當的 HTTP status codes (例如 500)。
+*   **資料來源 (`Data Source`):** 目前，`article_sources` list 硬編碼在 `app.py` 中。確保正確引用此 list variable。
+*   **錯誤處理 (`Error Handling`):** 在核心邏輯 (如隨機選擇) 周圍實現基本的 `try...except` blocks，以捕獲潛在的異常 (`exceptions`) 並返回上述描述的 JSON 錯誤回應格式。

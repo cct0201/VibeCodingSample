@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+編輯 `app.py` 或其他 Flask 應用程式檔案時：
+
+*   **URL 生成 (`URL Generation`):** 始終使用 `url_for('endpoint_name', **kwargs)` 來生成路由的 URL，而不是硬編碼路徑 (例如 `/get-articles`)。這有助於在路由變更時維護應用程式。記得從 `flask` import `url_for`。
+*   **JSON 回應 (`JSON Responses`):** 使用 `jsonify(data_dict)` 為 API 端點創建 JSON 回應。它會正確設定 `Content-Type` header 為 `application/json`。記得從 `flask` import `jsonify`。
+*   **配置與密鑰 (`Configuration and Secrets`):** 避免在程式碼中直接硬編碼敏感資訊 (如 API keys, database credentials, secret keys)。應使用環境變數 (透過 `os.environ.get()`) 或專用的設定檔/物件 (例如 `app.config.from_object()`)。雖然對這個簡單的 demo 可能不是絕對必要，但這是實際應用中至關重要的最佳實踐。
+*   **錯誤處理 (`Error Handling`):** 使用 `@app.errorhandler(error_code_or_exception)` 裝飾器來實現基本的錯誤處理。至少應考慮處理常見的錯誤，如 404 (`Not Found`) 和 500 (`Internal Server Error`)，以提供友好的錯誤頁面或 JSON 回應。
+*   **應用程式結構 (可擴展性 `Scalability`):** 對於像這個 demo 這樣的小型應用，將所有內容放在 `app.py` 中是可接受的。但對於較大的應用程式，應考慮使用 Flask `Blueprints` (`flask.Blueprint`) 將應用程式組織成模組化元件。將此視為未來增長的好習慣。
+*   **請求上下文 (`Request Context`):** 在路由處理器 (`route handlers`) 中適當理解和利用 Flask 的請求上下文 (例如，使用 `request` 物件來訪問傳入的數據)。記得從 `flask` import `request`。
