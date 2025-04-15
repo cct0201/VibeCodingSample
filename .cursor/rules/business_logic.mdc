@@ -15,3 +15,6 @@ alwaysApply: true
     *   失敗時 (例如，選擇過程中發生內部錯誤)，回應**應該**是一個指示錯誤的 JSON object。範例：`{"error": "Failed to retrieve articles"}`。應使用適當的 HTTP status codes (例如 500)。
 *   **資料來源 (`Data Source`):** 目前，`article_sources` list 硬編碼在 `app.py` 中。確保正確引用此 list variable。
 *   **錯誤處理 (`Error Handling`):** 在核心邏輯 (如隨機選擇) 周圍實現基本的 `try...except` blocks，以捕獲潛在的異常 (`exceptions`) 並返回上述描述的 JSON 錯誤回應格式。
+
+
+開發時，我希望整體的網站配色是像Google一樣的極簡風
