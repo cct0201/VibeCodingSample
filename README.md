@@ -60,16 +60,14 @@
 2. 查看 `.cursor/rules/` 目錄，理解如何將團隊知識系統化
 3. 研究 `app.py` 和 `templates/index.html` 如何遵循這些規則
 4. 嘗試自己修改或擴充功能，感受 AI 如何根據已有規則協助開發
-5. **設定 Custom Modes (選用):** 若想在 Cursor 中體驗本專案定義的 Plan/Act 模式，可依以下步驟設定：
-   - 打開 Cursor 設定 (Settings)。
-   - 搜尋 "Custom Modes"。
-   - 點擊 "Add Custom Mode"。
-   - **Plan Mode:**
-     - Mode Name: `Plan`
-     - Prompt: `Make sure you configure your "user.name" and "user.email" in git.`
-   - **Act Mode:**
-     - Mode Name: `Act`
-     - Prompt: `Make changes to the codebase according to the implementation plan in plan.md`
+5. **設定 Custom Modes (選用):** 若想在 Cursor 中體驗本專案定義的 Plan/Act 模式，可依[Cursor官網](https://docs.cursor.com/chat/custom-modes)設定：
+   - 加入以下Custom Mode
+      - **Plan Mode:**
+         - Mode Name: `Plan`
+         - Prompt: `Make sure you configure your "user.name" and "user.email" in git.`
+      - **Act Mode:**
+         - Mode Name: `Act`
+         - Prompt: `Make changes to the codebase according to the implementation plan in plan.md`
    - 設定完成後，即可在聊天輸入框左側的模式選單中選擇 Plan 或 Act 模式。
 
 ## 擴展建議
