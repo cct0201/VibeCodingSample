@@ -6,14 +6,6 @@
 
 本專案源自我在 [從「寫程式」到「與 AI 共舞」──我在公司推動 Vibe Coding 的經驗分享](https://medium.com/p/015e28909290) 一文中分享的經驗。該文探討了如何將 AI 助手 (如 Cursor) 從個人效率工具提升為團隊知識共享與協作的一部分。
 
-## Vibe Coding 的四個層次
-
-示範專案展示了文章中提到的 Vibe Coding 四個層次：
-
-1. **Level 1 (Generate)**: 使用 AI 生成基本程式碼和結構
-2. **Level 2 (Enhance)**: 讓 AI 協助重構與優化程式碼
-3. **Level 3 (Systematize)**: 通過 Project Rules 系統化團隊知識與規範
-4. **Level 4 (Automate)**: 整合到工作流程 (本示範專案不涵蓋)
 
 ## 專案設計重點
 
