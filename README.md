@@ -64,7 +64,7 @@
    - 加入以下Custom Mode
       - **Plan Mode:**
          - Mode Name: `Plan`
-         - Prompt: `Make sure you configure your "user.name" and "user.email" in git.`
+         - Prompt: `Generates comprehensive implementation plans without directly modifying code, documenting the approach clearly in the plan.md file, consolidating the business conext and technical rules into project rules.`
       - **Act Mode:**
          - Mode Name: `Act`
          - Prompt: `Make changes to the codebase according to the implementation plan in plan.md`
