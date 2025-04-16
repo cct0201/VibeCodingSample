@@ -67,17 +67,10 @@
          - Prompt: `Generates comprehensive implementation plans without directly modifying code, documenting the approach clearly in the plan.md file, consolidating the business conext and technical rules into project rules.`
       - **Act Mode:**
          - Mode Name: `Act`
-         - Prompt: `Make changes to the codebase according to the implementation plan in plan.md`
+         - Prompt: `Make changes to the codebase according to the implementation plan in plan.md.`
    - 設定完成後，即可在聊天輸入框左側的模式選單中選擇 Plan 或 Act 模式。
 
-## 擴展建議
 
-若要將這個示範項目擴展為更完整的應用，您可以考慮：
-
-1. 整合搜尋 API，動態獲取文章而不是使用硬編碼列表
-2. 添加文章預覽功能
-3. 實現使用者收藏功能
-4. 加入分類篩選功能
 
 ## 關於 Vibe Coding
 
