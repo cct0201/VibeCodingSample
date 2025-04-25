@@ -15,39 +15,6 @@ The demo project showcases the four levels of Vibe Coding mentioned in the artic
 3. **Level 3 (Systematize)**: Systematizing team knowledge and standards through Project Rules
 4. **Level 4 (Automate)**: Integration into workflows (not covered in this demo project)
 
-## Project Design Focus
-
-This project is intentionally designed to be small and simple, but includes various considerations found in actual development:
-
-- **Plan Mode**: Using `plan.md` for detailed planning, explaining project goals and implementation steps
-- **Rule Implementation**: Using Project Rules in `.cursor/rules/` to systematize team standards:
-  - Business logic rules (`business_logic.mdc`)
-  - Python code style rules (`python_linting.mdc`)
-  - Flask best practices (`flask_best_practice.mdc`)
-  - Task generation automation (`generate_tasks_from_plan.mdc`) - Automatically converts product requirements into structured tasks
-- **Act Mode**: Implementing specific functionality according to the plan and rules
-
-## Project Structure
-
-```
-.
-├── app.py              # Main Flask application
-├── templates/
-│   └── index.html      # Frontend page template
-├── static/             # (Optional) CSS/JS files
-├── .cursor/rules/      # Cursor Project Rules directory
-│   ├── business_logic.mdc
-│   ├── python_linting.mdc
-│   ├── flask_best_practice.mdc
-│   └── generate_tasks_from_plan.mdc
-├── requirements.txt    # Python dependency list
-├── docs/               # Project documentation directory
-│   ├── prd_*.md        # Product requirement documents
-│   ├── plan.md         # System design and implementation strategy
-│   ├── task.md         # Task summary table with all tasks
-│   └── tasks/          # Directory containing detailed individual task files
-└── README.md           # This readme file
-```
 
 ## Development Process
 
@@ -114,6 +81,45 @@ The system is particularly valuable for:
 - Teams with specialized roles (backend, frontend, design, testing)
 - Scenarios requiring precise coordination between dependent components
 - Maintaining quality standards across larger codebases
+
+
+## Project Design Focus
+
+This project is intentionally designed to be small and simple, but includes various considerations found in actual development:
+
+- **Plan Mode**: Using `plan.md` for detailed planning, explaining project goals and implementation steps
+- **Rule Implementation**: Using Project Rules in `.cursor/rules/` to systematize team standards:
+  - Business logic rules (`business_logic.mdc`)
+  - Python code style rules (`python_linting.mdc`)
+  - Flask best practices (`flask_best_practice.mdc`)
+  - Task generation automation (`generate_tasks_from_plan.mdc`) - Automatically converts product requirements into structured tasks
+- **Act Mode**: Implementing specific functionality according to the plan and rules
+
+
+
+## Project Structure
+
+```
+.
+├── app.py              # Main Flask application
+├── templates/
+│   └── index.html      # Frontend page template
+├── static/             # (Optional) CSS/JS files
+├── .cursor/rules/      # Cursor Project Rules directory
+│   ├── business_logic.mdc
+│   ├── python_linting.mdc
+│   ├── flask_best_practice.mdc
+│   └── generate_tasks_from_plan.mdc
+├── requirements.txt    # Python dependency list
+├── docs/               # Project documentation directory
+│   ├── prd_*.md        # Product requirement documents
+│   ├── plan.md         # System design and implementation strategy
+│   ├── task.md         # Task summary table with all tasks
+│   └── tasks/          # Directory containing detailed individual task files
+└── README.md           # This readme file
+```
+
+
 
 ## How to Run
 
