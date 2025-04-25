@@ -37,50 +37,19 @@ This project uses a two-stage development process, from requirement documents to
 
 #### Enhanced Task Management System
 
-The project implements a sophisticated task management system inspired by Task Master:
+The project implements a task management system inspired by Task Master with these key features:
 
-1. **Dual-layer Task Documentation**:
-   - **Task Summary Table**: Provides a high-level overview of all tasks with essential information
-   - **Individual Task Files**: Contain detailed implementation instructions, acceptance criteria, and test strategies
+1. **Dual-layer Documentation**: Summary table in `task.md` and detailed files in `tasks/` directory
+   
+2. **Task Metadata**: ID, title, description, status, dependencies (with visual indicators ✅⏱️), priority, and estimated time
 
-2. **Comprehensive Task Metadata**:
-   - **Task ID**: Unique identifier for each task (e.g., T001)
-   - **Title**: Concise description of the task
-   - **Description**: Brief explanation of the task's purpose
-   - **Status**: Current state (TO-DO, IN-PROGRESS, REVIEW, DONE)
-   - **Dependencies**: Lists other tasks that must be completed first, with visual indicators
-   - **Priority**: Importance level (High, Medium, Low)
-   - **Estimated Time**: Expected effort (S, M, L)
+3. **Dependency Tracking**: Accurate status indicators prevent work on incomplete prerequisites
 
-3. **Dependency Tracking**:
-   - Visual indicators show dependency status (✅ completed, ⏱️ pending)
-   - Rules ensure dependency status indicators are always accurate and up-to-date
-   - Prevents "phantom dependencies" by tracking the actual status of prerequisite tasks
+4. **Task Information**: Implementation details, acceptance criteria, and test strategies
 
-4. **Detailed Task Information**:
-   - **Implementation Details**: Step-by-step instructions for completing the task
-   - **Acceptance Criteria**: Clear, measurable standards for task completion
-   - **Test Strategy**: Approach for verifying the implementation meets requirements
+5. **Status Workflow**: TO-DO → IN-PROGRESS → REVIEW → DONE
 
-5. **Status Management**:
-   - Formalized workflow through predefined states
-   - **TO-DO**: Task waiting to be started
-   - **IN-PROGRESS**: Task in development
-   - **REVIEW**: Task development completed, waiting for review
-   - **DONE**: Review passed, ready for deployment
-
-This enhanced task management system enables teams to:
-- Handle complex projects with numerous interdependent tasks
-- Maintain clear visibility into task status and dependencies
-- Ensure consistent implementation with detailed specifications
-- Validate work against predefined acceptance criteria
-- Scale development across larger teams with clear responsibilities
-
-The system is particularly valuable for:
-- Projects with complex business logic requiring detailed specifications
-- Teams with specialized roles (backend, frontend, design, testing)
-- Scenarios requiring precise coordination between dependent components
-- Maintaining quality standards across larger codebases
+This system helps teams manage complex projects with interdependent components, maintain visibility into task status, ensure consistent implementation, and scale across larger teams.
 
 
 ## Project Design Focus
