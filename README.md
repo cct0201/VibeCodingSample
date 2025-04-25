@@ -24,6 +24,7 @@ This project is intentionally designed to be small and simple, but includes vari
   - Business logic rules (`business_logic.mdc`)
   - Python code style rules (`python_linting.mdc`)
   - Flask best practices (`flask_best_practice.mdc`)
+  - Task generation automation (`generate_tasks_from_plan.mdc`) - Automatically converts product requirements into structured tasks
 - **Act Mode**: Implementing specific functionality according to the plan and rules
 
 ## Project Structure
