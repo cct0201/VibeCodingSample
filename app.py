@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Vibe Coding 示範專案：AI 文章分享器
+Vibe Coding Demo Project: AI Article Sharer
 
-這個 Flask 應用程式能夠隨機提供關於 AI Vibe Coding 的文章連結。
+This Flask application randomly provides article links about AI Vibe Coding.
 """
 
 import random
@@ -11,85 +11,104 @@ from typing import Dict, List, Union, Optional, Tuple
 
 from flask import Flask, jsonify, render_template, url_for, request
 
-# 初始化 Flask 應用
+# Initialize Flask application
 app = Flask(__name__)
 
-# 文章來源列表 (硬編碼)
-article_sources: List[str] = [
-    "https://medium.com/p/015e28909290",  # Vibe Coding 經驗分享
-    "https://docs.cursor.com/context/rules",  # Cursor Rules 文件
-    "https://www.deeplearning.ai/the-batch/issue-24-real-magical-code-generation/",  # DeepLearning.AI - 程式碼生成
-    "https://medium.com/@johnowens/why-is-cursor-the-best-ai-based-ide-a-love-letter-f44e5fbdd75d",  # Cursor 優勢分析
-    "https://martinfowler.com/articles/2023-chatgpt-x-programmer.html"  # Martin Fowler 關於 AI 編程的看法
+# AI article source list
+articles = [
+    "https://medium.com/towards-data-science/chatgpt-explained-a-complete-guide-to-understanding-the-ai-language-model-0e5855512157",
+    "https://towardsdatascience.com/all-you-need-to-know-about-llms-from-embedding-to-prompt-engineering-and-rag-09e9c69e8811",
+    "https://www.marktechpost.com/2023/08/26/mit-and-ibm-introduce-dynalang-an-open-source-benchmark-designed-to-test-the-ability-of-llms-to-dynamically-switch-between-multiple-human-languages/",
+    "https://arstechnica.com/information-technology/2023/09/openai-reveals-gpts-customizable-chatgpt-mini-apps-open-to-anyone-to-create/",
+    "https://www.forbes.com/sites/bernardmarr/2023/09/11/the-amazing-ways-google-bard-uses-generative-ai/",
+    "https://www.vox.com/future-perfect/23891756/ai-chatgpt-bing-bard-anthropic-claude-ethics-safety-existential-risk-value-alignment",
+    "https://www.theverge.com/2023/8/22/23840529/meta-ai-assistant-chatbot-threads-messenger-facebook-instagram-whatsapp",
+    "https://time.com/6324525/ai-agi-anthropic-claude/",
+    "https://www.nytimes.com/2023/05/16/technology/ai-pioneer-godfather.html",
+    "https://www.theguardian.com/technology/2023/apr/14/claude-ai-chatbot-anthropic-chatgpt-rival",
+    "https://www.theatlantic.com/technology/archive/2023/09/anthropic-claude-2-ai-assistant/675156/",
+    "https://www.wired.com/story/ai-chatbots-hallucinations-problem/",
+    "https://podcasts.apple.com/us/podcast/cosmos-and-ai-a-conversation-with-sean-carroll/id1101223134?i=1000629118607",
+    "https://openai.com/blog/new-models-and-developer-products-announced-at-devday",
+    "https://writings.stephenwolfram.com/2023/06/claude-meets-wolfram/",
+    "https://hbr.org/2023/10/the-competitive-map-of-ai-is-being-redrawn-daily",
+    "https://www.quantamagazine.org/the-unpredictable-abilities-emerging-from-large-ai-models-20230316/"
 ]
 
 
 @app.route('/')
 def index() -> str:
     """
-    渲染主頁面。
+    Render the main page.
     
     Returns:
-        str: 渲染後的 HTML 內容
+        str: Rendered HTML content
     """
-    return render_template('index.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        # Return error page with error message
+        return render_template('index.html', error=f"Error loading page: {str(e)}")
 
 
 @app.route('/get-articles')
 def get_articles() -> Tuple[Dict[str, Union[List[str], str]], int]:
     """
-    從文章來源中隨機獲取不重複的文章 URL。
+    Randomly get non-duplicate article URLs from the article source.
     
-    - 如果 article_sources 有 3 篇或更多文章，返回 3 篇隨機文章
-    - 如果 article_sources 少於 3 篇，返回所有可用的文章
+    - If article_sources has 3 or more articles, return 3 random articles
+    - If article_sources has fewer than 3 articles, return all available articles
     
     Returns:
-        Tuple[Dict, int]: 包含所選文章 URL 的 JSON 回應和 HTTP 狀態碼
+        Tuple[Dict, int]: JSON response containing selected article URLs and HTTP status code
     """
     try:
-        # 去除重複的 URL (如果有的話)
-        unique_urls = list(set(article_sources))
-        
-        # 判斷可用的 URL 數量，並選擇適當數量的文章
-        if len(unique_urls) >= 3:
-            selected_articles = random.sample(unique_urls, 3)
+        # Select three random articles from the list
+        if len(articles) >= 3:
+            selected_articles = random.sample(articles, 3)
         else:
-            selected_articles = unique_urls
+            selected_articles = articles.copy()
         
-        # 返回 JSON 格式的回應
-        return jsonify({"articles": selected_articles}), 200
+        # Return response in JSON format
+        return jsonify({
+            "success": True,
+            "articles": selected_articles
+        }), 200
     
     except Exception as e:
-        app.logger.error(f"獲取文章時發生錯誤: {str(e)}")
-        return jsonify({"error": "無法檢索文章"}), 500
+        app.logger.error(f"Error occurred while getting articles: {str(e)}")
+        return jsonify({
+            "success": False,
+            "error": f"Error getting articles: {str(e)}"
+        }), 500
 
 
 @app.errorhandler(404)
 def page_not_found(e) -> Tuple[str, int]:
     """
-    處理 404 錯誤。
+    Handle 404 errors.
     
-    Args:
-        e: 錯誤對象
+    Parameters:
+        e: Error object
         
     Returns:
-        Tuple[str, int]: 渲染後的錯誤頁面和狀態碼
+        Tuple[str, int]: Rendered error page and status code
     """
-    return render_template('index.html', error="找不到頁面"), 404
+    return render_template('index.html', error="Page not found"), 404
 
 
 @app.errorhandler(500)
 def internal_server_error(e) -> Tuple[str, int]:
     """
-    處理 500 錯誤。
+    Handle 500 errors.
     
-    Args:
-        e: 錯誤對象
+    Parameters:
+        e: Error object
         
     Returns:
-        Tuple[str, int]: 渲染後的錯誤頁面和狀態碼
+        Tuple[str, int]: Rendered error page and status code
     """
-    return render_template('index.html', error="伺服器內部錯誤"), 500
+    return render_template('index.html', error="Internal server error"), 500
 
 
 if __name__ == '__main__':

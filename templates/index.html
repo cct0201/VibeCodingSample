@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vibe Coding 文章分享器</title>
+    <title>Vibe Coding Article Sharer</title>
     <style>
-        /* 極簡風格，類似 Google 的設計 */
+        /* Minimalist design, similar to Google's design style */
         body {
             font-family: Arial, sans-serif;
             max-width: 800px;
@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Vibe Coding 文章分享器</h1>
+        <h1>Vibe Coding Article Sharer</h1>
         
         {% if error %}
         <div class="error" style="display: block;">{{ error }}</div>
@@ -100,87 +100,87 @@
         <div class="error" id="errorContainer"></div>
         {% endif %}
 
-        <button id="getArticlesBtn">隨機獲取三篇文章</button>
+        <button id="getArticlesBtn">Get Three Random Articles</button>
         
-        <div class="loading" id="loadingIndicator">載入中...</div>
+        <div class="loading" id="loadingIndicator">Loading...</div>
         
         <ul id="articleList"></ul>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 獲取頁面元素
+            // Get page elements
             const getArticlesBtn = document.getElementById('getArticlesBtn');
             const articleList = document.getElementById('articleList');
             const errorContainer = document.getElementById('errorContainer');
             const loadingIndicator = document.getElementById('loadingIndicator');
             
-            // 為按鈕添加點擊事件監聽器
+            // Add click event listener to the button
             getArticlesBtn.addEventListener('click', function() {
-                // 清空現有文章列表
+                // Clear existing article list
                 articleList.innerHTML = '';
                 
-                // 隱藏錯誤訊息 (如果有的話)
+                // Hide error message (if any)
                 errorContainer.style.display = 'none';
                 
-                // 顯示載入指示器
+                // Show loading indicator
                 loadingIndicator.style.display = 'block';
                 
-                // 禁用按鈕，防止重複點擊
+                // Disable button to prevent multiple clicks
                 getArticlesBtn.disabled = true;
                 
-                // 呼叫後端 API
+                // Call backend API
                 fetch('/get-articles')
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('網路回應不正常');
+                            throw new Error('Network response was not ok');
                         }
                         return response.json();
                     })
                     .then(data => {
-                        // 隱藏載入指示器
+                        // Hide loading indicator
                         loadingIndicator.style.display = 'none';
                         
-                        // 啟用按鈕
+                        // Enable button
                         getArticlesBtn.disabled = false;
                         
-                        // 檢查是否有錯誤訊息
+                        // Check if there's an error message
                         if (data.error) {
                             errorContainer.textContent = data.error;
                             errorContainer.style.display = 'block';
                             return;
                         }
                         
-                        // 檢查 articles 陣列是否存在且不為空
+                        // Check if articles array exists and is not empty
                         if (!data.articles || data.articles.length === 0) {
-                            errorContainer.textContent = '找不到文章';
+                            errorContainer.textContent = 'No articles found';
                             errorContainer.style.display = 'block';
                             return;
                         }
                         
-                        // 為每篇文章建立列表項目
+                        // Create list items for each article
                         data.articles.forEach(url => {
                             const li = document.createElement('li');
                             const a = document.createElement('a');
                             a.href = url;
                             a.textContent = url;
-                            a.target = '_blank'; // 在新分頁中開啟連結
+                            a.target = '_blank'; // Open link in new tab
                             li.appendChild(a);
                             articleList.appendChild(li);
                         });
                     })
                     .catch(error => {
-                        // 隱藏載入指示器
+                        // Hide loading indicator
                         loadingIndicator.style.display = 'none';
                         
-                        // 啟用按鈕
+                        // Enable button
                         getArticlesBtn.disabled = false;
                         
-                        // 顯示錯誤訊息
-                        errorContainer.textContent = '無法獲取文章: ' + error.message;
+                        // Show error message
+                        errorContainer.textContent = 'Unable to get articles: ' + error.message;
                         errorContainer.style.display = 'block';
                         
-                        console.error('獲取文章時發生錯誤:', error);
+                        console.error('Error getting articles:', error);
                     });
             });
         });

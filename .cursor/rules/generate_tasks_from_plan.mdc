@@ -1,0 +1,79 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+---
+description: Generate structured system-level tasks from a product requirement document (PRD)
+globs: docs/prd_*.md
+alwaysApply: true
+---
+
+- **Purpose**: Implement sustainable task planning through a two-phase approach: first system design summary, then task breakdown.
+
+- **Trigger timing**:
+  - `docs/plan.md` file exists
+  - Content includes sections titled `System Design`, `Architecture Overview` or similar
+
+- **Output workflow**:
+  📍 **First phase**: System design plan already exists in `docs/plan.md`.
+  📍 **Second phase**: After the user reviews plan.md, all generated tasks must be written to `docs/task.md`.
+  Do not create new task files or distribute tasks across different documents. If necessary, overwrite existing content.
+
+- **Plan format (First phase)**:
+  - High-level system design summary to clarify module boundaries:
+    - Architecture overview
+    - Interfaces (API endpoints, events)
+    - Key models
+    - Edge cases
+  - Implementation strategy
+  - Major technical considerations
+
+- **Task table format (Second phase)**:
+  - Markdown table including the following columns:
+    - `Task ID`
+    - `Title`
+    - `Estimated time` (S = <1 day, M = 1–3 days, L = >3 days)
+    - `Dependencies` (list of task IDs or `-`)
+    - `Status` (TO-DO, IN-PROGRESS, REVIEW, DONE)
+    - `Acceptance criteria` (separate multiple items with `<br>`)
+
+- **Prompt template (First phase)**:
+
+Please analyze the PRD content and output the development plan to the file docs/plan.md.
+
+Please provide the following:
+1. A brief summary of the system design
+2. Implementation strategy
+3. Key technical considerations
+
+Keep the content concise and clear, highlighting key design decisions and implementation directions.
+
+- **Prompt template (Second phase)**:
+
+Please generate specific development tasks based on the content of plan.md and output them to docs/task.md.
+
+Generate a task table using the following format:
+Task ID | Title | Estimated Time | Dependencies | Status | Acceptance Criteria
+
+Use concise and clear task titles. Break down each task into approximately 1-3 day granularity. Include logical dependencies and measurable acceptance criteria.
+The status field is used to track task progress, from TO-DO to IN-PROGRESS, then to REVIEW, and finally to DONE before submission to git.
+
+- **Example task row**:
+
+| T003 | Create /get-articles endpoint | M | T001, T002 | TO-DO | Return 3 unique URLs<br>Handle cases with <3 sources<br>Return valid JSON |
+
+- **Best practices**:
+- Logically group related tasks (e.g., backend setup, API, frontend)
+- Maintain consistent task ID prefixes, such as `T001`, `T002`, etc.
+- If subtasks are needed, use suffixes like `T004-1`, `T004-2`
+- Initial status for new tasks should be set to `TO-DO`
+- Task progress update order: TO-DO -> IN-PROGRESS -> REVIEW -> DONE
+- Add status explanations at the end of the task list, explaining the meaning of each status
+
+
+
+
+
+
+

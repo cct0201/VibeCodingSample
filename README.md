@@ -1,91 +1,134 @@
-# Vibe Coding 示範專案：AI 文章分享器
+# Vibe Coding Demo Project: AI Article Sharer
 
-這是一個用於展示「Vibe Coding」開發流程的示範專案。專案實現了一個簡單的 Flask 網站，讓使用者點擊按鈕後，隨機獲取三篇關於 AI 與 Vibe Coding 的文章連結。
+This is a demonstration project showcasing the "Vibe Coding" development process. The project implements a simple Flask website that allows users to click a button and randomly receive three article links about AI and Vibe Coding.
 
-## 專案背景
+## Project Background
 
-本專案源自我在 [從「寫程式」到「與 AI 共舞」──我在公司推動 Vibe Coding 的經驗分享](https://medium.com/p/015e28909290) 一文中分享的經驗。該文探討了如何將 AI 助手 (如 Cursor) 從個人效率工具提升為團隊知識共享與協作的一部分。
+This project originates from my experience shared in [From "Writing Code" to "Dancing with AI" - My Experience Promoting Vibe Coding in My Company](https://medium.com/p/015e28909290). The article explores how to elevate AI assistants (like Cursor) from personal productivity tools to a part of team knowledge sharing and collaboration.
 
-## Vibe Coding 的四個層次
+## The Four Levels of Vibe Coding
 
-示範專案展示了文章中提到的 Vibe Coding 四個層次：
+The demo project showcases the four levels of Vibe Coding mentioned in the article:
 
-1. **Level 1 (Generate)**: 使用 AI 生成基本程式碼和結構
-2. **Level 2 (Enhance)**: 讓 AI 協助重構與優化程式碼
-3. **Level 3 (Systematize)**: 通過 Project Rules 系統化團隊知識與規範
-4. **Level 4 (Automate)**: 整合到工作流程 (本示範專案不涵蓋)
+1. **Level 1 (Generate)**: Using AI to generate basic code and structure
+2. **Level 2 (Enhance)**: Having AI assist with refactoring and optimizing code
+3. **Level 3 (Systematize)**: Systematizing team knowledge and standards through Project Rules
+4. **Level 4 (Automate)**: Integration into workflows (not covered in this demo project)
 
-## 專案設計重點
+## Project Design Focus
 
-這個專案特意設計成小型且簡單，但同時包含了實際開發中的各種考量：
+This project is intentionally designed to be small and simple, but includes various considerations found in actual development:
 
-- **Plan Mode**: 通過 `plan.md` 進行詳細規劃，說明專案目標與實作步驟
-- **規則落地**: 使用 `.cursor/rules/` 中的 Project Rules 系統化團隊規範：
-  - 業務邏輯規則 (`business_logic.mdc`)
-  - Python 程式碼風格規則 (`python_linting.mdc`)
-  - Flask 最佳實踐 (`flask_best_practice.mdc`)
-- **Act Mode**: 根據計畫和規則，實作具體功能
+- **Plan Mode**: Using `plan.md` for detailed planning, explaining project goals and implementation steps
+- **Rule Implementation**: Using Project Rules in `.cursor/rules/` to systematize team standards:
+  - Business logic rules (`business_logic.mdc`)
+  - Python code style rules (`python_linting.mdc`)
+  - Flask best practices (`flask_best_practice.mdc`)
+- **Act Mode**: Implementing specific functionality according to the plan and rules
 
-## 專案結構
+## Project Structure
 
 ```
 .
-├── app.py              # 主要 Flask 應用程式
+├── app.py              # Main Flask application
 ├── templates/
-│   └── index.html      # 前端頁面模板
-├── static/             # (可選) 存放 CSS/JS 檔案
-├── .cursor/rules/      # Cursor Project Rules 目錄
+│   └── index.html      # Frontend page template
+├── static/             # (Optional) CSS/JS files
+├── .cursor/rules/      # Cursor Project Rules directory
 │   ├── business_logic.mdc
 │   ├── python_linting.mdc
-│   └── flask_best_practice.mdc
-├── requirements.txt    # Python 依賴列表
-├── plan.md             # 開發計畫
-└── README.md           # 本說明檔
+│   ├── flask_best_practice.mdc
+│   └── generate_tasks_from_plan.mdc
+├── requirements.txt    # Python dependency list
+├── docs/               # Project documentation directory
+│   ├── prd_*.md        # Product requirement documents
+│   ├── plan.md         # System design and implementation strategy
+│   └── task.md         # Breakdown task list
+└── README.md           # This readme file
 ```
 
-## 如何運行
+## Development Process
 
-1. 安裝依賴：
+This project uses a two-stage development process, from requirement documents to executable tasks:
+
+### 1. From PRD to System Design
+
+- When a product requirement document with the prefix "prd_" exists, the system automatically analyzes the document and generates a system design plan
+- All designs and strategies are written to `docs/plan.md`, including:
+  - System design summary
+  - Implementation strategy
+  - Key technical considerations
+
+### 2. From System Design to Task List
+
+- Team members review the system design in `docs/plan.md`
+- After confirming the design, the system generates specific tasks based on the plan, written to `docs/task.md`
+- Tasks are presented in table format, including:
+  - Task ID
+  - Title
+  - Estimated time
+  - Dependencies
+  - Status (TO-DO, IN-PROGRESS, REVIEW, DONE)
+  - Acceptance criteria
+- Task status reflects development progress and review status:
+  - **TO-DO**: Task waiting to be started
+  - **IN-PROGRESS**: Task in development
+  - **REVIEW**: Task development completed, waiting for review
+  - **DONE**: Review passed, can be committed to git
+
+This two-stage approach ensures a smooth transition from high-level design to specific implementation, and allows team members to participate in design discussions before task breakdown.
+
+## How to Run
+
+1. Install dependencies:
    ```
    pip install -r requirements.txt
    ```
 
-2. 運行 Flask 應用：
+2. Run the Flask application:
    ```
    flask run
    ```
 
-3. 在瀏覽器中訪問：
+3. Access in browser:
    ```
    http://localhost:5000
    ```
 
-## 如何使用這個示範
+## How to Use This Demo
 
-本專案作為展示 Vibe Coding 的教學範例，您可以關注以下幾點：
+As a teaching example demonstrating Vibe Coding, you can focus on the following points:
 
-1. 閱讀 `plan.md` 了解專案規劃思路
-2. 查看 `.cursor/rules/` 目錄，理解如何將團隊知識系統化
-3. 研究 `app.py` 和 `templates/index.html` 如何遵循這些規則
-4. 嘗試自己修改或擴充功能，感受 AI 如何根據已有規則協助開發
+1. Read `plan.md` to understand the project planning approach
+2. Check the `.cursor/rules/` directory to understand how team knowledge is systematized
+3. Study how `app.py` and `templates/index.html` follow these rules
+4. Try modifying or extending functionality yourself to experience how AI assists development based on existing rules
 
-## 擴展建議
+## Extension Suggestions
 
-若要將這個示範項目擴展為更完整的應用，您可以考慮：
+To extend this demo project into a more complete application, you might consider:
 
-1. 整合搜尋 API，動態獲取文章而不是使用硬編碼列表
-2. 添加文章預覽功能
-3. 實現使用者收藏功能
-4. 加入分類篩選功能
+1. Integrating a search API to dynamically fetch articles instead of using a hardcoded list
+2. Adding article preview functionality
+3. Implementing user bookmark functionality
+4. Adding category filtering
 
-## 關於 Vibe Coding
+## About Vibe Coding
 
-Vibe Coding 不僅是使用 AI 輔助編程，而是一種將 AI 視為團隊成員的開發理念，重點在於：
+Vibe Coding is not just using AI to assist programming, but a development philosophy that treats AI as a team member, focusing on:
 
-1. 從**個人效率**到**團隊知識**的轉變
-2. 將隱性知識通過規則系統化
-3. 讓 AI 理解並遵循團隊的業務邏輯與技術標準
+1. The transition from **personal productivity** to **team knowledge**
+2. Systematizing tacit knowledge through rules
+3. Enabling AI to understand and follow the team's business logic and technical standards
+
+## Task Management References
+
+This project references the following open-source tools and concepts for task management:
+
+1. **Task Master** ([github.com/eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)): We've integrated its task tracking and management concepts to better fit this project's development process.
+
+2. **Extension Possibilities**: Features in Task Master such as Test Strategy and Sub Tasks for each task can also be implemented in this project through custom Cursor rules (see `.cursor/rules/generate_tasks_from_plan.mdc`), but for simplicity, this demo project does not fully implement these features.
 
 ---
 
-*本專案僅作為示範與教學用途。* 
+*This project is for demonstration and educational purposes only.* 
