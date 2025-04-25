@@ -1,29 +1,22 @@
-# 專案目標
+## System Design
 
-建立一個簡單的 Python Flask 網站，提供一個按鈕，點擊後能隨機顯示三篇關於 "AI Vibe Coding" 的網路文章連結。
+### Architecture Overview
+- A lightweight Flask backend serving HTML and JSON endpoints
+- Frontend: HTML template rendered server-side
+- JavaScript handles AJAX call to `/get-articles`
 
-# 技術選型
+### Interfaces
+- `/`: Render index
+- `/get-articles`: Return 3 random links
 
-*   **後端:** Python (Flask)
-*   **前端:** HTML, JavaScript (可能需要一點點 CSS)
-*   **HTTP 請求:** `requests` 函式庫 (雖然這個版本先不用，但先列出)
-*   **依賴管理:** `requirements.txt`
+### Data Models
+- No persistent model; article sources are hard-coded list
 
-# 專案結構
+### Constraints
+- Source list may be less than 3
+- URLs must not repeat
 
-```
-.
-├── app.py             # 主要 Flask 應用程式
-├── templates/
-│   └── index.html     # 前端頁面模板
-├── static/            # (可選) 存放 CSS/JS 檔案
-├── .cursor/rules/     # Cursor Project Rules 目錄
-│   ├── business_logic.mdc
-│   ├── python_linting.mdc
-│   └── flask_best_practice.mdc
-├── requirements.txt   # Python 依賴列表
-└── plan.md            # 開發計畫 (本檔案)
-```
+
 
 # 核心邏輯 (Act Mode 執行步驟)
 
@@ -71,3 +64,59 @@
 # 預期交付
 
 一個能運行的 Flask 網站，符合專案目標描述的功能。
+
+
+
+
+# Technical Plan – AI Article Site
+
+## Architecture Overview
+- Flask server with two endpoints:
+  - `/` renders the HTML template
+  - `/get-articles` returns JSON data
+
+## Project Structure
+
+```
+.
+├── app.py                       # Flask application entry point
+├── templates/                   # Template directory
+│   └── index.html               # HTML frontend template
+├── static/                      # Static assets
+│   ├── css/                     # CSS stylesheets
+│   └── js/                      # JavaScript files
+├── requirements.txt             # Python dependency list
+├── plan.md                      # Technical design (How)
+├── docs/                        # Documentation directory
+│   └── prd_ai_article_site.md   # Product requirement document (What)
+├── tasks/                       # Tasks directory
+│   └── ai_article_site_tasks.md # Task list in Markdown table format
+└── .cursor/                     # Cursor configuration
+    └── rules/                   # Cursor rules
+        ├── generate_tasks_from_prd.mdc  # Auto-rule to generate task list from PRD
+        ├── python_linting.mdc           # Python linting rules
+        ├── flask_best_practice.mdc      # Flask best practices
+        └── business_logic.mdc           # Business logic rules
+```
+
+## Data Flow
+- Client sends GET request to `/get-articles`
+- Server randomly selects 3 URLs from a static list
+- Server responds with a JSON object
+
+## Logic Detail
+- Use `random.sample()` to ensure non-repeating selection
+- If less than 3 URLs, return all
+- Use `jsonify()` for response
+
+## Function/Module Plan
+- `app.py`: flask app, endpoint definitions, logic for selection
+- `index.html`: contains button + JS call to `/get-articles`
+
+## Edge Cases
+- Empty source list → return `{"articles": []}`
+- Source list < 3 → no crash, return what exists
+
+## Improvements (future)
+- Move source list to config file or admin panel
+- Add tagging or categories to articles
