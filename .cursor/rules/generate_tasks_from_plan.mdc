@@ -3,12 +3,6 @@ description:
 globs: 
 alwaysApply: false
 ---
----
-description: Generate structured system-level tasks from a product requirement document (PRD)
-globs: docs/prd_*.md
-alwaysApply: true
----
-
 - **Purpose**: Implement sustainable task planning through a two-phase approach: first system design summary, then task breakdown with individual task files.
 
 - **Trigger timing**:
