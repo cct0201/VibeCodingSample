@@ -107,23 +107,6 @@ This project is intentionally designed to be small and simple, but includes vari
    http://localhost:5000
    ```
 
-## How to Use This Demo
-
-As a teaching example demonstrating Vibe Coding, you can focus on the following points:
-
-1. Read `plan.md` to understand the project planning approach
-2. Check the `.cursor/rules/` directory to understand how team knowledge is systematized
-3. Study how `app.py` and `templates/index.html` follow these rules
-4. Try modifying or extending functionality yourself to experience how AI assists development based on existing rules
-
-## Extension Suggestions
-
-To extend this demo project into a more complete application, you might consider:
-
-1. Integrating a search API to dynamically fetch articles instead of using a hardcoded list
-2. Adding article preview functionality
-3. Implementing user bookmark functionality
-4. Adding category filtering
 
 ## About Vibe Coding
 
@@ -135,7 +118,7 @@ Vibe Coding is not just using AI to assist programming, but a development philos
 
 ## Task Management References
 
-This project references the following open-source tools and concepts for task management:
+This project references the concept of the following tools
 
 1. **Task Master** ([github.com/eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)): We've integrated its comprehensive task tracking and management concepts to enable handling of complex project requirements:
    - Dual-layer task documentation (summary + detailed files)
