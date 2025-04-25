@@ -1,6 +1,6 @@
 ---
 description: Vibe Coding 文章分享器應用的特定業務邏輯規則。
-globs: ["app.py"] # 主要應用於 app.py
+globs: 
 alwaysApply: false
 ---
 When implementing or modifying the `/get-articles` endpoint in `app.py`:

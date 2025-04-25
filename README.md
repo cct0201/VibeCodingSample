@@ -44,7 +44,8 @@ This project is intentionally designed to be small and simple, but includes vari
 ├── docs/               # Project documentation directory
 │   ├── prd_*.md        # Product requirement documents
 │   ├── plan.md         # System design and implementation strategy
-│   └── task.md         # Breakdown task list
+│   ├── task.md         # Task summary table with all tasks
+│   └── tasks/          # Directory containing detailed individual task files
 └── README.md           # This readme file
 ```
 
@@ -63,21 +64,56 @@ This project uses a two-stage development process, from requirement documents to
 ### 2. From System Design to Task List
 
 - Team members review the system design in `docs/plan.md`
-- After confirming the design, the system generates specific tasks based on the plan, written to `docs/task.md`
-- Tasks are presented in table format, including:
-  - Task ID
-  - Title
-  - Estimated time
-  - Dependencies
-  - Status (TO-DO, IN-PROGRESS, REVIEW, DONE)
-  - Acceptance criteria
-- Task status reflects development progress and review status:
-  - **TO-DO**: Task waiting to be started
-  - **IN-PROGRESS**: Task in development
-  - **REVIEW**: Task development completed, waiting for review
-  - **DONE**: Review passed, can be committed to git
+- After confirming the design, the system generates both a task summary and individual detailed task files:
+  - A summary table in `docs/task.md` with all tasks in a concise format
+  - Individual task files in `docs/tasks/` directory (e.g., `task_T001.md`, `task_T002.md`) with detailed information
 
-This two-stage approach ensures a smooth transition from high-level design to specific implementation, and allows team members to participate in design discussions before task breakdown.
+#### Enhanced Task Management System
+
+The project implements a sophisticated task management system inspired by Task Master:
+
+1. **Dual-layer Task Documentation**:
+   - **Task Summary Table**: Provides a high-level overview of all tasks with essential information
+   - **Individual Task Files**: Contain detailed implementation instructions, acceptance criteria, and test strategies
+
+2. **Comprehensive Task Metadata**:
+   - **Task ID**: Unique identifier for each task (e.g., T001)
+   - **Title**: Concise description of the task
+   - **Description**: Brief explanation of the task's purpose
+   - **Status**: Current state (TO-DO, IN-PROGRESS, REVIEW, DONE)
+   - **Dependencies**: Lists other tasks that must be completed first, with visual indicators
+   - **Priority**: Importance level (High, Medium, Low)
+   - **Estimated Time**: Expected effort (S, M, L)
+
+3. **Dependency Tracking**:
+   - Visual indicators show dependency status (✅ completed, ⏱️ pending)
+   - Rules ensure dependency status indicators are always accurate and up-to-date
+   - Prevents "phantom dependencies" by tracking the actual status of prerequisite tasks
+
+4. **Detailed Task Information**:
+   - **Implementation Details**: Step-by-step instructions for completing the task
+   - **Acceptance Criteria**: Clear, measurable standards for task completion
+   - **Test Strategy**: Approach for verifying the implementation meets requirements
+
+5. **Status Management**:
+   - Formalized workflow through predefined states
+   - **TO-DO**: Task waiting to be started
+   - **IN-PROGRESS**: Task in development
+   - **REVIEW**: Task development completed, waiting for review
+   - **DONE**: Review passed, ready for deployment
+
+This enhanced task management system enables teams to:
+- Handle complex projects with numerous interdependent tasks
+- Maintain clear visibility into task status and dependencies
+- Ensure consistent implementation with detailed specifications
+- Validate work against predefined acceptance criteria
+- Scale development across larger teams with clear responsibilities
+
+The system is particularly valuable for:
+- Projects with complex business logic requiring detailed specifications
+- Teams with specialized roles (backend, frontend, design, testing)
+- Scenarios requiring precise coordination between dependent components
+- Maintaining quality standards across larger codebases
 
 ## How to Run
 
@@ -126,9 +162,23 @@ Vibe Coding is not just using AI to assist programming, but a development philos
 
 This project references the following open-source tools and concepts for task management:
 
-1. **Task Master** ([github.com/eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)): We've integrated its task tracking and management concepts to better fit this project's development process.
+1. **Task Master** ([github.com/eyaltoledano/claude-task-master](https://github.com/eyaltoledano/claude-task-master)): We've integrated its comprehensive task tracking and management concepts to enable handling of complex project requirements:
+   - Dual-layer task documentation (summary + detailed files)
+   - Dependency status tracking with visual indicators
+   - Comprehensive test strategy documentation
+   - Detailed acceptance criteria
 
-2. **Extension Possibilities**: Features in Task Master such as Test Strategy and Sub Tasks for each task can also be implemented in this project through custom Cursor rules (see `.cursor/rules/generate_tasks_from_plan.mdc`), but for simplicity, this demo project does not fully implement these features.
+2. **Features for Complex Projects**: The enhanced task management system supports complex project requirements through:
+   - Precise dependency tracking that prevents work on tasks with incomplete prerequisites
+   - Detailed implementation instructions that maintain consistency across developers
+   - Strict status consistency rules to prevent misrepresentation of progress
+   - Scalable task ID system supporting parent-child relationships for task hierarchies
+
+To use this enhanced task management system for your own complex projects:
+1. Adapt the `.cursor/rules/generate_tasks_from_plan.mdc` file to match your project's needs
+2. Create your product requirements document in `docs/prd_*.md`
+3. Let the system generate your plan and tasks
+4. Iterate through task implementation following the defined workflow
 
 ---
 

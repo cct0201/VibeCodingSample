@@ -9,7 +9,7 @@ globs: docs/prd_*.md
 alwaysApply: true
 ---
 
-- **Purpose**: Implement sustainable task planning through a two-phase approach: first system design summary, then task breakdown.
+- **Purpose**: Implement sustainable task planning through a two-phase approach: first system design summary, then task breakdown with individual task files.
 
 - **Trigger timing**:
   - `docs/plan.md` file exists
@@ -17,8 +17,14 @@ alwaysApply: true
 
 - **Output workflow**:
   📍 **First phase**: System design plan already exists in `docs/plan.md`.
-  📍 **Second phase**: After the user reviews plan.md, all generated tasks must be written to `docs/task.md`.
-  Do not create new task files or distribute tasks across different documents. If necessary, overwrite existing content.
+  📍 **Second phase**: After the user reviews plan.md:
+     - Create a summary task list in `docs/task.md`
+     - Generate individual task files in `docs/tasks/task_id.md` for each task
+
+- **Directory structure**:
+  - Ensure `docs/tasks/` directory exists
+  - Generate individual task files within this directory
+  - Create an aggregated task summary in `docs/task.md`
 
 - **Plan format (First phase)**:
   - High-level system design summary to clarify module boundaries:
@@ -29,14 +35,39 @@ alwaysApply: true
   - Implementation strategy
   - Major technical considerations
 
-- **Task table format (Second phase)**:
-  - Markdown table including the following columns:
+- **Task summary format (docs/task.md)**:
+  - JSON-like structure in markdown table format:
+  - Table with columns:
     - `Task ID`
     - `Title`
-    - `Estimated time` (S = <1 day, M = 1–3 days, L = >3 days)
-    - `Dependencies` (list of task IDs or `-`)
+    - `Description`
     - `Status` (TO-DO, IN-PROGRESS, REVIEW, DONE)
-    - `Acceptance criteria` (separate multiple items with `<br>`)
+    - `Dependencies` (with status indicators: ✅ completed, ⏱️ pending)
+    - `Priority` (High, Medium, Low)
+  - Summary of all tasks with basic information
+  - Status indicators to quickly identify task dependencies
+  - **Accurate dependency status tracking**:
+    - Always determine dependency status based on the actual status of the referenced task
+    - For newly generated tasks where ALL tasks are TO-DO, ALL dependency status indicators must be ⏱️ (pending)
+    - Only mark a dependency as ✅ (completed) when the referenced task explicitly has a status of DONE
+    - Never assume a task is completed unless explicitly marked as DONE in the task list
+    - When updating task statuses, cascade the status indicators for all dependencies
+
+- **Individual task file format (docs/tasks/task_id.md)**:
+  ```
+  # Task ID: <id>
+  # Title: <title>
+  # Status: <status>
+  # Dependencies: <comma-separated list of dependency IDs>
+  # Priority: <priority>
+  # Description: <brief description>
+  
+  # Details:
+  <detailed implementation notes>
+  
+  # Test Strategy:
+  <verification approach>
+  ```
 
 - **Prompt template (First phase)**:
 
@@ -51,25 +82,89 @@ Keep the content concise and clear, highlighting key design decisions and implem
 
 - **Prompt template (Second phase)**:
 
-Please generate specific development tasks based on the content of plan.md and output them to docs/task.md.
+Please generate specific development tasks based on the content of plan.md following these steps:
 
-Generate a task table using the following format:
-Task ID | Title | Estimated Time | Dependencies | Status | Acceptance Criteria
+1. Create a task summary table in docs/task.md with the following format:
+   | Task ID | Title | Description | Status | Dependencies | Priority |
+   Include status indicators for dependencies (✅ for completed, ⏱️ for pending).
 
-Use concise and clear task titles. Break down each task into approximately 1-3 day granularity. Include logical dependencies and measurable acceptance criteria.
-The status field is used to track task progress, from TO-DO to IN-PROGRESS, then to REVIEW, and finally to DONE before submission to git.
+2. Create individual task files in docs/tasks/ directory with the following naming format: task_T001.md, task_T002.md, etc.
+   Each task file should follow this structure:
+   ```
+   # Task ID: <id>
+   # Title: <title>
+   # Status: <status>
+   # Dependencies: <comma-separated list of dependency IDs>
+   # Priority: <priority>
+   # Description: <brief description>
+   # Estimated time: <S/M/L>
+   
+   # Details:
+   <detailed implementation notes>
+   
+   # Acceptance Criteria:
+   <verification criteria, one per line>
+   
+   # Test Strategy:
+   <verification approach>
+   ```
 
-- **Example task row**:
+3. Ensure all tasks have:
+   - Clear, descriptive titles
+   - Appropriate dependencies
+   - Detailed implementation instructions
+   - Measurable acceptance criteria
+   - Basic test strategy
 
-| T003 | Create /get-articles endpoint | M | T001, T002 | TO-DO | Return 3 unique URLs<br>Handle cases with <3 sources<br>Return valid JSON |
+- **Example task summary entry**:
+
+| T003 | Create /get-articles endpoint | Implement API endpoint to return random article URLs | TO-DO | T001 ⏱️, T002 ⏱️ | High |
+
+- **Example task file (docs/tasks/task_T003.md)**:
+```
+# Task ID: T003
+# Title: Create /get-articles endpoint
+# Status: TO-DO
+# Dependencies: T001, T002
+# Priority: High
+# Description: Implement API endpoint to return random article URLs
+# Estimated time: M
+
+# Details:
+Create a GET endpoint at /get-articles that randomly selects 3 non-duplicate URLs from the article_sources list.
+Use random.sample() to ensure uniqueness.
+Handle edge cases when the source list has fewer than 3 items.
+Return proper JSON response with error handling.
+
+# Acceptance Criteria:
+- Returns exactly 3 unique URLs when source list has ≥3 items
+- Returns all available URLs when source list has <3 items
+- Returns valid JSON in format {"articles": ["url1", "url2", "url3"]}
+- Implements error handling with appropriate status codes
+
+# Test Strategy:
+Test the endpoint with various source list sizes:
+- With >3 sources: verify 3 unique URLs returned
+- With <3 sources: verify all sources returned
+- Mock exceptions to verify error responses
+```
 
 - **Best practices**:
 - Logically group related tasks (e.g., backend setup, API, frontend)
 - Maintain consistent task ID prefixes, such as `T001`, `T002`, etc.
-- If subtasks are needed, use suffixes like `T004-1`, `T004-2`
+- Set appropriate priorities (High, Medium, Low) based on implementation sequence and importance
+- For subtasks, use the format `T004-1`, `T004-2` in both filenames and references
 - Initial status for new tasks should be set to `TO-DO`
 - Task progress update order: TO-DO -> IN-PROGRESS -> REVIEW -> DONE
-- Add status explanations at the end of the task list, explaining the meaning of each status
+- Include detailed test strategies to validate when tasks are complete
+- Update task status in both the summary file and individual task files
+- **Status consistency rules**:
+  - Verify status consistency before saving any task files
+  - When initializing tasks, all tasks start in TO-DO status
+  - Dependencies on TO-DO or IN-PROGRESS tasks must show ⏱️ (pending) indicator
+  - Dependencies on DONE tasks must show ✅ (completed) indicator
+  - NEVER guess or assume task statuses - only use explicitly defined statuses
+  - When updating a task's status, update all dependent task files to reflect the new dependency status
 
 
 
